@@ -44,12 +44,27 @@ const iTetramino = [
 const theTetraminos = [lTetramino, zTetramino, oTetramino, iTetramino]
 
 let currentPosition = 4;
-let current = theTetraminos[0][0];
+let currentRotation = 0;
 
-// draw the first rotaion in the first tetramino
+// randomly select a tetramino and its first rotation
+let random = Math.floor(Math.random()*theTetraminos.length)
+console.log(random)
+
+let current = theTetraminos[random][currentRotation];
+
+// draw the Tetramino
 
 function draw () {
     current.forEach(index => {
         squares[currentPosition + index].classList.add('tetramino')
     })
 }
+
+// undraw the tetramino
+function undraw() {
+    current.forEach(index => {
+        squares[currentPosition + index].classList.remove('tetramino')
+    })
+}
+
+// times and intervals 45:33
