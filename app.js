@@ -8,7 +8,7 @@ const width = 10;
 
 const lTetramino = [
     [1, width+1, width*2+1, 2],
-    [width, width+1, width*2+1, width*2],
+    [width, width+1, width+2, width*2+2],
     [1, width+1, width*2+1, width*2],
     [width, width*2, width*2+1, width*2+2]
 ]
@@ -71,6 +71,20 @@ function undraw() {
 
 timerId = setInterval(moveDown, 1000)
 
+//assign functions to keycodes
+function control(e) {
+    if(e.keyCode === 37) {
+        moveLeft()
+    } else if(e.keyCode === 38) {
+        rotate()
+    } else if(e.keyCode === 39) {
+        moveRight()
+    } else if(e.keyCode === 40) {
+        moveDown()
+    }
+}
+document.addEventListener('keyup', control)
+
 function moveDown() {
     undraw()
     currentPosition += width
@@ -101,5 +115,30 @@ function moveLeft() {
         currentPosition += 1
     }
 
+    draw()
+}
+
+// move the tetramino right, unless is at the edge or a blockage
+function moveRight() {
+    undraw()
+    const isAtRightEdge = current.some(index => (currentPosition + index) % width === width - 1 )
+
+    if(!isAtRightEdge) currentPosition += 1
+
+    if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+        currentPosition -= 1
+    }
+
+    draw()
+}
+
+//rotate the tetramino
+function rotate() {
+    undraw()
+    currentRotation ++
+    if(currentRotation === current.length) { // if the current rotation gets to 4, go back to beginning
+        currentRotation = 0
+    }
+    current = theTetraminos[random][currentRotation]
     draw()
 }
