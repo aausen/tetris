@@ -67,4 +67,39 @@ function undraw() {
     })
 }
 
-// times and intervals 45:33
+// make the tetramino move down every second
+
+timerId = setInterval(moveDown, 1000)
+
+function moveDown() {
+    undraw()
+    currentPosition += width
+    draw()
+    freeze()
+}
+
+// freeze tetraminos
+function freeze() {
+    if(current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
+        current.forEach(index => squares[currentPosition + index].classList.add('taken'))
+        //start new tetramino falling
+        random = Math.floor(Math.random() * theTetraminos.length)
+        current = theTetraminos[random][currentRotation]
+        currentPosition = 4
+        draw()
+    }
+}
+
+// move the tetramino to the left, unless is at the edge or a blockage
+function moveLeft() {
+    undraw()
+    const isAtLeftEdge = current.some(index => (currentPosition + index) % width === 0)
+
+    if(!isAtLeftEdge) currentPosition -= 1
+
+    if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+        currentPosition += 1
+    }
+
+    draw()
+}
