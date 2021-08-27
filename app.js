@@ -3,8 +3,9 @@ let squares = Array.from(document.querySelectorAll('.grid div'));
 const scoreDisplay = document.querySelector('#score');
 const startButton = document.querySelector('#start-button')
 const width = 10;
+let nextRandom = 0;
 
-// Tetraminos
+// Tetraminoes
 
 const lTetramino = [
     [1, width+1, width*2+1, 2],
@@ -41,16 +42,16 @@ const iTetramino = [
     [width, width+1, width+2, width+3]
 ]
 
-const theTetraminos = [lTetramino, zTetramino, oTetramino, iTetramino]
+const theTetraminoes = [lTetramino, zTetramino, tTetramino, oTetramino, iTetramino]
 
 let currentPosition = 4;
 let currentRotation = 0;
 
 // randomly select a tetramino and its first rotation
-let random = Math.floor(Math.random()*theTetraminos.length)
+let random = Math.floor(Math.random()*theTetraminoes.length)
 console.log(random)
 
-let current = theTetraminos[random][currentRotation];
+let current = theTetraminoes[random][currentRotation];
 
 // draw the Tetramino
 
@@ -92,15 +93,17 @@ function moveDown() {
     freeze()
 }
 
-// freeze tetraminos
+// freeze tetraminoes
 function freeze() {
     if(current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
         current.forEach(index => squares[currentPosition + index].classList.add('taken'))
         //start new tetramino falling
-        random = Math.floor(Math.random() * theTetraminos.length)
-        current = theTetraminos[random][currentRotation]
+        random = nextRandom
+        nextRandom = Math.floor(Math.random() * theTetraminoes.length)
+        current = theTetraminoes[random][currentRotation]
         currentPosition = 4
         draw()
+        displayShape()
     }
 }
 
@@ -139,6 +142,31 @@ function rotate() {
     if(currentRotation === current.length) { // if the current rotation gets to 4, go back to beginning
         currentRotation = 0
     }
-    current = theTetraminos[random][currentRotation]
+    current = theTetraminoes[random][currentRotation]
     draw()
+}
+
+//show up next tetramino in mini-grid
+const displaySquares = document.querySelectorAll('.mini-grid div')
+const displayWidth = 4
+let displayIndex = 0
+
+//the Tetraminoes without rotations
+const upNextTetraminoes = [
+    [1, displayWidth+1, displayWidth*2+1, 2], //lTetramino
+    [displayWidth+1, displayWidth+2, displayWidth*2, displayWidth*2+1], //zTetramino
+    [1, displayWidth, displayWidth+1, displayWidth+2], //tTetramino
+    [0, 1, displayWidth, displayWidth+1], // oTetramino
+    [1, displayWidth+1, displayWidth*2+1, displayWidth*3+1] // iTetramino
+]
+
+// display the upnext shape in the mini-grid
+function displayShape() {
+    // remove any trace of tetramino from the entire grid
+    displaySquares.forEach(square => {
+        square.classList.remove('tetramino')
+    })
+    upNextTetraminoes[nextRandom].forEach(index => {
+        displaySquares[displayIndex + index].classList.add('tetramino')
+    })
 }
