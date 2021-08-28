@@ -6,6 +6,13 @@ const width = 10;
 let nextRandom = 0;
 let timerId
 let score = 0
+const colors = [
+    'orange', 
+    'red',
+    'purple',
+    'green',
+    'blue'
+]
 
 // Tetraminoes
 
@@ -60,6 +67,7 @@ let current = theTetraminoes[random][currentRotation];
 function draw () {
     current.forEach(index => {
         squares[currentPosition + index].classList.add('tetramino')
+        squares[currentPosition + index].style.backgroundColor = colors[random]
     })
 }
 
@@ -67,6 +75,7 @@ function draw () {
 function undraw() {
     current.forEach(index => {
         squares[currentPosition + index].classList.remove('tetramino')
+        squares[currentPosition + index].style.backgroundColor = ''
     })
 }
 
@@ -107,6 +116,7 @@ function freeze() {
         draw()
         displayShape()
         addScore()
+        gameOver()
     }
 }
 
@@ -152,7 +162,7 @@ function rotate() {
 //show up next tetramino in mini-grid
 const displaySquares = document.querySelectorAll('.mini-grid div')
 const displayWidth = 4
-let displayIndex = 0
+const displayIndex = 0
 
 //the Tetraminoes without rotations
 const upNextTetraminoes = [
@@ -168,9 +178,11 @@ function displayShape() {
     // remove any trace of tetramino from the entire grid
     displaySquares.forEach(square => {
         square.classList.remove('tetramino')
+        square.style.backgroundColor = ''
     })
     upNextTetraminoes[nextRandom].forEach(index => {
         displaySquares[displayIndex + index].classList.add('tetramino')
+        displaySquares[displayIndex + index].style.backgroundColor = colors[nextRandom]
     })
 }
 
@@ -197,10 +209,19 @@ function addScore() {
             row.forEach(index => {
                 squares[index].classList.remove('taken')
                 squares[index].classList.remove('tetramino')
+                squares[index].style.backgroundColor = ''
             })
             const squaresRemoved = squares.splice(i, width)
             sqaures = squaresRemoved.concat(squares)
             squares.forEach(cell => grid.appendChild(cell))
         }
+    }
+}
+
+// game over
+function gameOver() {
+    if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+        scoreDisplay.innerHTML = 'end'
+        clearInterval(timerId)
     }
 }
