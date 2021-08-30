@@ -33,3 +33,21 @@
     width: 30px;
     height: 30px;
 }
+
+.jumbotron {
+    background-image: url(shapes.jpg);
+    background-size: cover;
+    height: 300px;
+}
+
+.jumbotron h1 {
+    color: white;
+    text-align: center;
+    font-family: 'Righteous', cursive;
+    font-size: 5em;
+}
+
+body {
+    background-color: lightgray;
+    font-family: 'Righteous', cursive;
+}

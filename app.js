@@ -200,7 +200,6 @@ function addScore() {
     for(let i=0; i < 199; i+= width) {
         const row = [i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9]
         if(row.every(index => squares[index].classList.contains('taken'))) {
-            console.log("Inside add score")
             score += 10
             scoreDisplay.innerHTML = score
             row.forEach(index => {
@@ -209,11 +208,9 @@ function addScore() {
                 squares[index].style.backgroundColor = ''
             })
             const squaresRemoved = squares.splice(i, width)
-            console.log("squares splice")
             squares = squaresRemoved.concat(squares)
-            console.log("squares removed")
             squares.forEach(cell => grid.appendChild(cell))
-            console.log("cells added")
+            
         }
     }
 }
@@ -221,7 +218,9 @@ function addScore() {
 // game over
 function gameOver() {
     if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+        console.log("inside end")
         scoreDisplay.innerHTML = 'end'
         clearInterval(timerId)
+        timerId = setInterval(draw, 0)
     }
 }
