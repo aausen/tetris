@@ -7,11 +7,11 @@ let nextRandom = 0;
 let timerId
 let score = 0
 const colors = [
-    'orange', 
-    'red',
-    'purple',
-    'green',
-    'blue'
+    '#fa26a0', 
+    '#f8d210',
+    '#6C11A9',
+    '#f51720',
+    '#2ff3e0'
 ]
 
 // Tetraminoes
@@ -58,8 +58,6 @@ let currentRotation = 0;
 
 // randomly select a tetramino and its first rotation
 let random = Math.floor(Math.random()*theTetraminoes.length)
-console.log(random)
-
 let current = theTetraminoes[random][currentRotation];
 
 // draw the Tetramino
@@ -79,9 +77,6 @@ function undraw() {
     })
 }
 
-// make the tetramino move down every second
-
-// timerId = setInterval(moveDown, 1000)
 
 //assign functions to keycodes
 function control(e) {
@@ -109,6 +104,7 @@ function freeze() {
     if(current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
         current.forEach(index => squares[currentPosition + index].classList.add('taken'))
         //start new tetramino falling
+        console.log(current)
         random = nextRandom
         nextRandom = Math.floor(Math.random() * theTetraminoes.length)
         current = theTetraminoes[random][currentRotation]
@@ -204,6 +200,7 @@ function addScore() {
     for(let i=0; i < 199; i+= width) {
         const row = [i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9]
         if(row.every(index => squares[index].classList.contains('taken'))) {
+            console.log("Inside add score")
             score += 10
             scoreDisplay.innerHTML = score
             row.forEach(index => {
@@ -212,8 +209,11 @@ function addScore() {
                 squares[index].style.backgroundColor = ''
             })
             const squaresRemoved = squares.splice(i, width)
-            sqaures = squaresRemoved.concat(squares)
+            console.log("squares splice")
+            squares = squaresRemoved.concat(squares)
+            console.log("squares removed")
             squares.forEach(cell => grid.appendChild(cell))
+            console.log("cells added")
         }
     }
 }
