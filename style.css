@@ -68,5 +68,10 @@ p {
 }
 
 .headshot {
-    width: 100px;
+    width: 300px;
+    
+}
+
+#start-button {
+    float: right;
 }
