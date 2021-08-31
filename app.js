@@ -112,6 +112,7 @@ function freeze() {
         draw()
         displayShape()
         addScore()
+        winGame()
         gameOver()
     }
 }
@@ -218,9 +219,17 @@ function addScore() {
 // game over
 function gameOver() {
     if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
-        console.log("inside end")
         scoreDisplay.innerHTML = 'end'
         clearInterval(timerId)
         timerId = setInterval(draw, 0)
+    }
+}
+
+// win the game
+function winGame() {
+    if(score === 150) {
+        scoreDisplay.innerHTML = 'You Won!'
+        clearInterval(timerId)
+        
     }
 }

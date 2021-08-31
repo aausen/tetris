@@ -51,6 +51,7 @@
 body {
     background-color: lightgray;
     font-family: 'Righteous', cursive;
+    padding-bottom: 30px;
    
 }
 
@@ -72,6 +73,3 @@ p {
     
 }
 
-#start-button {
-    float: right;
-}
