@@ -45,9 +45,28 @@
     text-align: center;
     font-family: 'Righteous', cursive;
     font-size: 5em;
+  
 }
 
 body {
     background-color: lightgray;
     font-family: 'Righteous', cursive;
+   
+}
+
+.btn {
+    padding: 20px;
+}
+
+p {
+    padding-top: 20px;
+}
+
+.icon {
+    width: 100px;
+    
+}
+
+.headshot {
+    width: 100px;
 }
