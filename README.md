@@ -6,6 +6,8 @@ My take on the classic arcade game where players try to skillfully stack tetromi
 the grid. Make a full line and gain points. If you reach 150 points, you win! Stack the tetrominos to the top 
 and game over. 
 
+<img src="img/gameplay.png" alt="Tetris">
+
 # Tech Stack
 - JavaScript
 - HTML
