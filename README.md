@@ -1,6 +1,6 @@
 # Tetris
 
-Live website [here.](https://aausen.github.io/tetris/)
+View the live website [here.](https://aausen.github.io/tetris/)
 
 My take on the classic arcade game where players try to skillfully stack tetrominos to create lines across
 the grid. Make a full line and gain points. If you reach 150 points, you win! Stack the tetrominos to the top 
@@ -15,7 +15,8 @@ and game over.
 # Installation
 
 - Clone the repository onto your own machine using your favorite code editor.
-- Get started adding your own features and personal touches
+- Get started adding your own features and personal touches.
+- Open the index.html file using your favorite browser.
 
 # Deploying the Game
  
